@@ -1,1 +1,34 @@
-{}
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "NBA Official Game Ball",
+      "description": "Basketball players around the world are unified by their love of the NBA game. The NBA inspired to play through competitive action, powerful camaraderie, and incredible athleticism, and it begins with the game ball. The Wilson Official NBA Game Ball is built with genuine leather and constructed to meet the world-class standards of the NBA. This is the basketball used by every team and every player, in every game.",
+      "image": "https://www.wilson.com/de-de/media/catalog/product/W/T/WTB7500ID__b722ae318490e0f2e686864dc70fd730.png?dpr=5&fit=bounds&orient=1&quality=90&optimize=high&format=pjpg&auto=webp&enable=upscale&width=1708&height=997&canvas=8540%2C4985&bg-color=f5f5f5",
+      "category": "accessoires",
+      "sport": "basketball",
+      "price": 229.95,
+      "stock": 20
+    },
+    {
+      "id": 2,
+      "name": "Nike Air Zoom Pegasus 38",
+      "description": "The Nike Air Zoom Pegasus 38 is a versatile running shoe that offers cushioning and responsiveness for your daily runs. It features a breathable mesh upper and a responsive Zoom Air unit in the forefoot. Whether you're hitting the pavement or the trails, these shoes will provide comfort and support.",
+      "image": "https://www.example.com/images/nike_pegasus_38.jpg",
+      "category": "shoes",
+      "sport": "running",
+      "price": 129.99,
+      "stock": 10
+    },
+    {
+      "id": 3,
+      "name": "Under Armour Men's Tech 2.0 T-Shirt",
+      "description": "The Under Armour Men's Tech 2.0 T-Shirt is a lightweight and breathable shirt that is perfect for workouts or everyday wear. It is made from moisture-wicking fabric to keep you dry and comfortable. The shirt also features anti-odor technology to prevent the growth of odor-causing microbes.",
+      "image": "https://www.example.com/images/ua_tech_tshirt.jpg",
+      "category": "shirts",
+      "sport": "other",
+      "price": 24.99,
+      "stock": 15
+    }
+  ]
+}
