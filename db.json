@@ -2,32 +2,202 @@
   "products": [
     {
       "id": 1,
-      "name": "NBA Official Game Ball",
-      "description": "Basketball players around the world are unified by their love of the NBA game. The NBA inspired to play through competitive action, powerful camaraderie, and incredible athleticism, and it begins with the game ball. The Wilson Official NBA Game Ball is built with genuine leather and constructed to meet the world-class standards of the NBA. This is the basketball used by every team and every player, in every game.",
-      "image": "https://www.wilson.com/de-de/media/catalog/product/W/T/WTB7500ID__b722ae318490e0f2e686864dc70fd730.png?dpr=5&fit=bounds&orient=1&quality=90&optimize=high&format=pjpg&auto=webp&enable=upscale&width=1708&height=997&canvas=8540%2C4985&bg-color=f5f5f5",
-      "category": "accessoires",
-      "sport": "basketball",
-      "price": 229.95,
-      "stock": 20
-    },
-    {
-      "id": 2,
-      "name": "Nike Air Zoom Pegasus 38",
-      "description": "The Nike Air Zoom Pegasus 38 is a versatile running shoe that offers cushioning and responsiveness for your daily runs. It features a breathable mesh upper and a responsive Zoom Air unit in the forefoot. Whether you're hitting the pavement or the trails, these shoes will provide comfort and support.",
-      "image": "https://www.example.com/images/nike_pegasus_38.jpg",
+      "name": "Run Comfort Men's Running Shoes",
+      "description": "Comfortable running shoes with good cushioning, ideal for beginner runners.",
+      "image": "https://contents.mediadecathlon.com/p1794813/7da63d68618717be9633433e7a252f6e/p1794813.jpg",
       "category": "shoes",
       "sport": "running",
-      "price": 129.99,
+      "price": 50,
       "stock": 10
     },
     {
+      "id": 2,
+      "name": "Kiprun Long Men's Running Shoes",
+      "description": "Running shoes designed for performance, for training or competition.",
+      "image": "https://contents.mediadecathlon.com/p2269537/k$7b36e9e8c1e6658ea1395ff904c54012/sq/kiprun-long-2-mens-running-shoes-black-yellow.jpg?format=auto&f=800x0",
+      "category": "shoes",
+      "sport": "running",
+      "price": 70,
+      "stock": 5
+    },
+    {
       "id": 3,
-      "name": "Under Armour Men's Tech 2.0 T-Shirt",
-      "description": "The Under Armour Men's Tech 2.0 T-Shirt is a lightweight and breathable shirt that is perfect for workouts or everyday wear. It is made from moisture-wicking fabric to keep you dry and comfortable. The shirt also features anti-odor technology to prevent the growth of odor-causing microbes.",
-      "image": "https://www.example.com/images/ua_tech_tshirt.jpg",
+      "name": "Men's Fitness Cardio Training T-Shirt",
+      "description": "Comfortable and breathable t-shirt, perfect for fitness cardio training.",
+      "image": "https://contents.mediadecathlon.com/p1851222/k$cdb373f7ec13ffd4ae52880816a16c44/men-s-cardio-training-fitness-t-shirt-100-grey.jpg?format=auto&quality=40&f=800x800",
       "category": "shirts",
       "sport": "other",
-      "price": 24.99,
+      "price": 20,
+      "stock": 15
+    },
+    {
+      "id": 4,
+      "name": "Women's Yoga Organic Cotton T-Shirt",
+      "description": "Soft and comfortable organic cotton t-shirt, perfect for yoga practice.",
+      "image": "https://contents.mediadecathlon.com/p2476632/6570830df97af58f2742e604a70b7269/p2476632.jpg",
+      "category": "shirts",
+      "sport": "other",
+      "price": 25,
+      "stock": 10
+    },
+    {
+      "id": 5,
+      "name": "Women's Fitness Cardio Training Tank Top",
+      "description": "Breathable and lightweight tank top, perfect for fitness cardio training.",
+      "image": "https://contents.mediadecathlon.com/p1705602/k$222e62602052619b207eab8d7f8613ac/muscle-back-fitness-tank-top-my-top-black.jpg?&f=452x452",
+      "category": "shirts",
+      "sport": "other",
+      "price": 20,
+      "stock": 20
+    },
+    {
+      "id": 6,
+      "name": "Women's Tennis Skirt",
+      "description": "Comfortable and stylish skirt, perfect for a game of tennis.",
+      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/f33b0807-c78b-4df3-8e96-479e4ac27926/dri-fit-isofly-basketballshorts-Gtxhsp.png",
+      "category": "pants",
+      "sport": "tennis",
+      "price": 30,
+      "stock": 20
+    },
+    {
+      "id": 7,
+      "name": "Running Water Bottle",
+      "description": "Easy to hold water bottle, perfect for long runs.",
+      "image": "https://media1.popsugar-assets.com/files/thumbor/9AVbtNaOafhAIhdoFQHTBMFckYk/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2022/05/12/858/n/1922729/b86648bb627d618a2e78f3.21283701_/i/Best-Tennis-Skirts.webp",
+      "category": "accessoires",
+      "sport": "running",
+      "price": 10,
+      "stock": 50
+    },
+    {
+      "id": 8,
+      "name": "Yoga Mat",
+      "description": "https://nwscdn.com/media/catalog/product/w/a/water-bottle-running-swatch.jpg",
+      "image": "https://via.placeholder.com/150",
+      "category": "accessoires",
+      "sport": "other",
+      "price": 20,
+      "stock": 30
+    },
+    {
+      "id": 9,
+      "name": "Men's Tennis Polo Shirt",
+      "description": "Lightweight and breathable polo shirt, perfect for a game of tennis.",
+      "image": "https://static.nike.com/a/images/t_default/ab042a7f-2704-4e24-964b-560298705212/gt-cut-2-basketball-shoes-KDW90P.png",
+      "category": "shirts",
+      "sport": "tennis",
+      "price": 35,
+      "stock": 20
+    },
+    {
+      "id": 10,
+      "name": "Women's Running Tights",
+      "description": "Comfortable and stretchy tights, perfect for running in cooler weather.",
+      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/f33b0807-c78b-4df3-8e96-479e4ac27926/dri-fit-isofly-basketballshorts-Gtxhsp.png",
+      "category": "pants",
+      "sport": "running",
+      "price": 40,
+      "stock": 25
+    },
+    {
+      "id": 11,
+      "name": "Basketball Hoop",
+      "description": "Durable and easy to assemble basketball hoop, perfect for practicing at home.",
+      "image": "https://assets.adidas.com/images/w_383,h_383,f_auto,q_auto,fl_lossy,c_fill,g_auto/b96dc63f550c43d2bc6ccc45ce459251_9366/solarglide-6-shoes.jpg",
+      "category": "accessoires",
+      "sport": "basketball",
+      "price": 60,
+      "stock": 10
+    },
+    {
+      "id": 12,
+      "name": "American Football",
+      "description": "Durable and grippy American football, perfect for a game with friends.",
+      "image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/3b9b1231-7989-41e9-8d0a-6557bbeec1b2/jordan-sport-damenshorts-SZLb0n.png",
+      "category": "other",
+      "sport": "american-football",
+      "price": 25,
+      "stock": 30
+    },
+    {
+      "id": 13,
+      "name": "Women's Tennis Shoes",
+      "description": "Comfortable and durable shoes, perfect for a game of tennis.",
+      "image": "https://cms.brnstc.de/product_images/2244x3072p/cpro/media/images/product/22/8/100133464611000_0_1660810389560.webp",
+      "category": "shoes",
+      "sport": "tennis",
+      "price": 50,
+      "stock": 15
+    },
+    {
+      "id": 14,
+      "name": "Men's Running Jacket",
+      "description": "Lightweight and wind-resistant jacket, perfect for running in cooler weather.",
+      "image": "https://img01.ztat.net/article/spp-media-p1/e0743459e22d4e1e8a63f2893b086f35/4b2a95ccaa8b4a26a7a1ac85b9f764ff.jpg?imwidth=1800&filter=packshot",
+      "category": "shirts",
+      "sport": "running",
+      "price": 55,
+      "stock": 20
+    },
+    {
+      "id": 15,
+      "name": "Basketball Jersey",
+      "description": "Breathable and lightweight jersey, perfect for a game of basketball.",
+      "image": "https://www.snipes.com/dw/image/v2/BDCB_PRD/on/demandware.static/-/Sites-snse-master-eu/default/dw3f10c57b/2060251_P.jpg?sw=1560&sh=1560&sm=fit&sfrm=png",
+      "category": "shirts",
+      "sport": "basketball",
+      "price": 30,
+      "stock": 25
+    },
+    {
+      "id": 16,
+      "name": "Running Headband",
+      "description": "Comfortable and stretchy headband, perfect for keeping hair out of your face while running.",
+      "image": "https://cdn.cepsports.com/media/catalog/product/cache/f65cb222571fee82dbd8175800c7e70e/w/y/wy12e2-1.jpg",
+      "category": "accessoires",
+      "sport": "running",
+      "price": 10,
+      "stock": 50
+    },
+    {
+      "id": 17,
+      "name": "Tennis Racket",
+      "description": "Lightweight and durable tennis racket, perfect for beginners and intermediate players.",
+      "image": "https://m.media-amazon.com/images/I/71aKDg74S1L._AC_SL1500_.jpg",
+      "category": "other",
+      "sport": "tennis",
+      "price": 80,
+      "stock": 15
+    },
+    {
+      "id": 18,
+      "name": "American Football Gloves",
+      "description": "Grippy and comfortable gloves, perfect for catching an American football.",
+      "image": "https://contents.mediadecathlon.com/m6217726/k$25ed216c8981b37db786238ea07528bd/sq/american-football-handschuhe-receiver-handschuhe-erwachsene-schwarz.jpg?format=auto&f=969x969&quality=40",
+      "category": "accessoires",
+      "sport": "american-football",
+      "price": 20,
+      "stock": 30
+    },
+    {
+      "id": 19,
+      "name": "Women's Basketball Shorts",
+      "description": "Lightweight and breathable shorts, perfect for a game of basketball.",
+      "image": "https://www.snipes.com/dw/image/v2/BDCB_PRD/on/demandware.static/-/Sites-snse-master-eu/default/dw93218334/2060956_P.jpg?sw=1560&sh=1560&sm=fit&sfrm=png",
+      "category": "pants",
+      "sport": "basketball",
+      "price": 30,
+      "stock": 20
+    },
+    {
+      "id": 20,
+      "name": "Running Hydration Vest",
+      "description": "Lightweight and comfortable hydration vest, perfect for long distance running.",
+      "image": "https://images-dynamic-arcteryx.imgix.net/S23/1350x1710/Norvan-7-Vest-Lampyre-Sprint.jpg?auto=format%2Ccompress&ixlib=react-9.7.0&q=75&w=450&h=525&dpr=2",
+      "category": "accessoires",
+      "sport": "running",
+      "price": 70,
       "stock": 15
     }
   ]

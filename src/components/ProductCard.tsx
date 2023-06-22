@@ -32,6 +32,7 @@ export function ProductCard({ product }: Props) {
         className: cn("w-6 h-6", sportIcon[product.sport].color),
       })}
       <p>{product.description}</p>
+      <img src={product.image} alt={product.name} />
       <span>{product.category}</span>
 
       <span>{product.price}</span>
