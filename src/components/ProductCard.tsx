@@ -1,5 +1,5 @@
 import { Product, Sport } from "../types/products"
-import React from "react"
+import React, { useState } from "react"
 import {
   GiBasketballBall,
   GiTennisBall,
@@ -7,13 +7,12 @@ import {
   GiAmericanFootballBall,
   GiSportMedal,
 } from "react-icons/gi"
-
-import { HiMinus, HiPlus } from "react-icons/hi"
+import { toast } from "react-hot-toast"
+import { HiCheckCircle, HiMinus, HiPlus } from "react-icons/hi"
 import { cn } from "../lib/utils"
-
-type Props = {
-  product: Product
-}
+import { Button } from "./Button"
+import axios from "axios"
+import { CartItem } from "../types/cart"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -26,7 +25,61 @@ const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   tennis: { icon: <GiTennisBall />, color: "text-yellow-300" },
 }
 
+type Props = {
+  product: Product
+}
+
 export function ProductCard({ product }: Props) {
+  const [quantity, setQuantity] = useState(0)
+
+  function increment() {
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1)
+    }
+  }
+
+  function decrement() {
+    if (quantity > 0) {
+      setQuantity(quantity - 1)
+    }
+  }
+
+  async function addToCart() {
+    const { data: cart } = await axios.get<CartItem[]>(
+      "http://localhost:3000/cart"
+    )
+    const cartItem = cart.find((item) => item.productId === product.id)
+    let item
+    if (!cartItem) {
+      const { data: newItem } = await axios.post<CartItem>(
+        "http://localhost:3000/cart",
+        {
+          productId: product.id,
+          quantity,
+        }
+      )
+      item = newItem
+    } else {
+      const { data: updatedItem } = await axios.patch<CartItem>(
+        `http://localhost:3000/cart/${cartItem.id}`,
+        {
+          quantity: cartItem.quantity + quantity,
+        }
+      )
+      item = updatedItem
+    }
+
+    await axios.patch(`http://localhost:3000/products/${product.id}`, {
+      stock: product.stock - quantity,
+    })
+
+    setQuantity(0)
+    toast("Product added to cart", {
+      icon: <HiCheckCircle className="w-6 h-6 text-green-500" />,
+      position: "bottom-right",
+    })
+  }
+
   return (
     <div className="shadow-md rounded-md overflow-hidden flex flex-col">
       <div className="relative">
@@ -46,7 +99,7 @@ export function ProductCard({ product }: Props) {
             {React.cloneElement(sportIcon[product.sport].icon, {
               className: cn("w-6 h-6", sportIcon[product.sport].color),
             })}
-            <span className="bg-slate-300 rounded-full px-2 py-0.5 text-sm">
+            <span className="bg-slate-200 rounded-full px-2 py-0.5 text-sm">
               {product.category}
             </span>
           </div>
@@ -54,50 +107,23 @@ export function ProductCard({ product }: Props) {
         </div>
         <div className="flex gap-4 items-center">
           <div className="flex items-center gap-2">
-            <Button variant="outline">
+            <Button onClick={decrement} variant="outline">
               <HiMinus />
             </Button>
-            <span className="font-medium">0</span>
-            <Button variant="outline">
+            <span className="font-medium w-6 text-center">{quantity}</span>
+            <Button onClick={increment} variant="outline">
               <HiPlus />
             </Button>
           </div>
-          <Button className="flex-1">Add to cart</Button>
+          <Button
+            onClick={addToCart}
+            className="flex-1"
+            disabled={quantity === 0}
+          >
+            Add to cart
+          </Button>
         </div>
       </div>
     </div>
-  )
-}
-
-type ButtonProps = {
-  variant?: "primary" | "outline"
-} & React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->
-
-function Button({
-  variant = "primary",
-  className,
-  children,
-  ...props
-}: ButtonProps) {
-  const styles: Record<typeof variant, string> = {
-    primary:
-      "bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600 transition",
-    outline: "border-2 border-slate-400 p-2",
-  }
-
-  return (
-    <button
-      className={cn(
-        "flex items-center justify-center rounded-md",
-        styles[variant],
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </button>
   )
 }
