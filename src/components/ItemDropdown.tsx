@@ -7,6 +7,7 @@ import { HiEllipsisHorizontal } from "react-icons/hi2"
 import { DeleteDialog } from "./DeleteDialog"
 import { cn } from "../lib/utils"
 import React from "react"
+import { Product } from "../types/products"
 
 type ItemDropdownProps = {
   item: CartItem
@@ -28,6 +29,12 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
   }
   async function deleteItem() {
     await axios.delete(`http://localhost:3000/cart/${item.id}`)
+    const { data: product } = await axios.get<Product>(
+      `http://localhost:3000/products/${item.productId}`
+    )
+    await axios.patch(`http://localhost:3000/products/${item.productId}`, {
+      stock: product.stock + item.quantity,
+    })
     closeModal()
   }
   function changeQuantity() {
