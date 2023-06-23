@@ -10,7 +10,7 @@ type ButtonProps = {
 export function Button({
   variant = "primary",
   className,
-  children,
+  children = "Button",
   ...props
 }: ButtonProps) {
   const styles: Record<typeof variant, string> = {
