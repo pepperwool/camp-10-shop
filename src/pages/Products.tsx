@@ -1,10 +1,16 @@
-import { useLoaderData } from "react-router-dom"
-import { Product } from "../types/products"
-import { ProductCard } from "../components/ProductCard"
+import { useLoaderData } from "react-router-dom";
+import { Product } from "../types/products";
+import { ProductCard } from "../components/ProductCard";
+import { useProducts } from "../hooks/useProducts";
 
 export function Products() {
-  const { products } = useLoaderData() as { products: Product[] }
+  const { products } = useLoaderData() as { products: Product[] };
 
+  const { isSuccess, isLoading, isError, data } = useProducts({
+    initialData: products,
+  });
+
+  console.log({ isSuccess, isLoading, isError, data });
   return (
     <div>
       <h2 className="text-4xl mb-8 font-semibold">Products</h2>
@@ -14,5 +20,5 @@ export function Products() {
         ))}
       </div>
     </div>
-  )
+  );
 }

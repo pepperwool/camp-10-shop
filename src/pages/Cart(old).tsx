@@ -1,40 +1,26 @@
-import { useRouteLoaderData } from "react-router-dom";
-import { CartItem } from "../types/cart";
-import { Product } from "../types/products";
-import { useProducts } from "../hooks/useProducts";
-import { useCart } from "../hooks/useCart";
-import { ItemDropdown } from "../components/ItemDropdown";
+import { useRouteLoaderData } from "react-router-dom"
+import { ItemDropdown } from "../components/ItemDropdown"
+import { CartItem } from "../types/cart"
+import { Product } from "../types/products"
 
 export function Cart() {
-  const { cart: initialCart } = useRouteLoaderData("root") as {
-    cart: CartItem[];
-    products: Product[];
-  };
+  const { cart, products } = useRouteLoaderData("root") as {
+    cart: CartItem[]
+    products: Product[]
+  }
 
-  const { data: cart } = useCart({
-    initialData: initialCart,
-  });
-
-  const { data: products } = useProducts({
-    enabled: cart && cart.length > 0,
-  });
-
-  const productsWithQuanty = products
-    ?.filter((product) => {
-      return cart?.some((item) => item.productId === product.id);
-    })
-    .map((product) => {
-      const item = cart?.find((item) => item.productId === product.id);
-      return {
-        ...product,
-        quantity: item ? item.quantity : 0,
-        item: item,
-      };
-    });
+  const productsWithQuanty = products.map((product) => {
+    const item = cart.find((item) => item.productId === product.id)
+    return {
+      ...product,
+      quantity: item ? item.quantity : 0,
+      item: item,
+    }
+  })
 
   return (
     <div className="flex flex-col gap-4">
-      {productsWithQuanty?.map((product) => (
+      {productsWithQuanty.map((product) => (
         <div key={product.id} className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img
@@ -56,12 +42,12 @@ export function Cart() {
         <h3 className="text-2xl font-semibold">Total</h3>
         <span className="text-3xl font-medium">
           $
-          {productsWithQuanty?.reduce(
+          {productsWithQuanty.reduce(
             (acc, product) => acc + product.quantity * product.price,
             0
           )}
         </span>
       </div>
     </div>
-  );
+  )
 }

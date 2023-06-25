@@ -1,14 +1,19 @@
-import React from "react"
-import ReactDOM from "react-dom/client"
-import "./index.css"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { RootLayout } from "./layouts/Root"
-import { Products } from "./pages/Products"
-import axios from "axios"
-import { Cart } from "./pages/Cart"
-import { Product } from "./types/products"
-import { CartItem } from "./types/cart"
-import { Toaster } from "react-hot-toast"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RootLayout } from "./layouts/Root";
+import { Products } from "./pages/Products";
+import axios from "axios";
+import { Cart } from "./pages/Cart";
+import { Product } from "./types/products";
+import { CartItem } from "./types/cart";
+import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getCart } from "./api/cart";
+import { getProducts } from "./api/products";
+
+const queryClient = new QueryClient();
 
 // Routes
 // - Products Page -> Homepage
@@ -23,27 +28,21 @@ const router = createBrowserRouter([
     id: "root",
     element: <RootLayout />,
     loader: async () => {
-      const { data: cart } = await axios.get<CartItem[]>(
-        "http://localhost:3000/cart"
-      )
-      const { data: products } = await axios.get<Product[]>(
-        "http://localhost:3000/products"
-      )
+      const cart = await getCart();
+      const products = await getProducts();
       // Filter out products that are not in the cart
       const filteredProducts = products.filter((product) =>
         cart.some((item) => item.productId === product.id)
-      )
-      return { cart, products: filteredProducts }
+      );
+      return { cart, products: filteredProducts };
     },
     children: [
       {
         index: true,
         element: <Products />,
         loader: async () => {
-          const { data: products } = await axios.get(
-            "http://localhost:3000/products"
-          )
-          return { products }
+          const products = await getProducts();
+          return { products };
         },
       },
       {
@@ -52,11 +51,13 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
+]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <Toaster />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <Toaster />
+    </QueryClientProvider>
   </React.StrictMode>
-)
+);
