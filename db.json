@@ -18,7 +18,7 @@
       "category": "shoes",
       "sport": "running",
       "price": 70,
-      "stock": 3
+      "stock": 5
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "category": "shirts",
       "sport": "other",
       "price": 20,
-      "stock": 0
+      "stock": 5
     },
     {
       "id": 4,
@@ -128,7 +128,7 @@
       "category": "shoes",
       "sport": "tennis",
       "price": 50,
-      "stock": 12
+      "stock": 15
     },
     {
       "id": 14,
@@ -203,19 +203,24 @@
   ],
   "cart": [
     {
-      "productId": 2,
-      "quantity": 2,
+      "productId": 1,
+      "quantity": 13,
       "id": 1
     },
     {
-      "productId": 3,
-      "quantity": 5,
+      "productId": 2,
+      "quantity": 6,
       "id": 2
     },
     {
-      "productId": 13,
-      "quantity": 3,
+      "productId": 3,
+      "quantity": 9,
       "id": 3
+    },
+    {
+      "productId": 4,
+      "quantity": 2,
+      "id": 4
     }
   ]
 }
