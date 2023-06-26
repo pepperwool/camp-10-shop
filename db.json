@@ -201,30 +201,5 @@
       "stock": 15
     }
   ],
-<<<<<<< HEAD
-  "cart": [
-    {
-      "productId": 1,
-      "quantity": 13,
-      "id": 1
-    },
-    {
-      "productId": 2,
-      "quantity": 6,
-      "id": 2
-    },
-    {
-      "productId": 3,
-      "quantity": 9,
-      "id": 3
-    },
-    {
-      "productId": 4,
-      "quantity": 2,
-      "id": 4
-    }
-  ]
-=======
   "cart": []
->>>>>>> react-query-exercise
 }

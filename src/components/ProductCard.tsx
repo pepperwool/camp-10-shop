@@ -16,6 +16,7 @@ import axios from "axios"
 import { CartItem } from "../types/cart"
 import { addToCart, updateItem } from "../api/cart"
 import { useQueryClient, useMutation } from "@tanstack/react-query"
+import { MutatedCartItem } from "../types/cart"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -37,7 +38,7 @@ export function ProductCard({ product }: Props) {
   const queryClient = useQueryClient()
 
   const { mutate } = useMutation({
-    mutationFn: async (item: Omit<CartItem, "id">) => {
+    mutationFn: async (item: MutatedCartItem) => {
       const { data: cart } = await axios.get<CartItem[]>(
         "http://localhost:3000/cart"
       )
@@ -78,7 +79,17 @@ export function ProductCard({ product }: Props) {
     },
   })
 
-  
+  function increment() {
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1)
+    }
+  }
+
+  function decrement() {
+    if (quantity > 0) {
+      setQuantity(quantity - 1)
+    }
+  }
 
   async function updateCart() {
     mutate({
