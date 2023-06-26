@@ -9,3 +9,10 @@ export const getCart = async () => {
   )
   return res.data
 }
+
+export const addToCart = async (item: Omit<CartItem, "id">) => {
+  const res = await axios.post<CartItem>(
+    "http://localhost:3000/cart", {...item}
+  )
+  return res.data
+}
