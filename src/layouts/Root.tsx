@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link, Outlet } from "react-router-dom";
 import { GiShoppingCart } from "react-icons/gi";
 import { useCart } from "../hooks/useCart";
@@ -5,6 +6,14 @@ import { useCart } from "../hooks/useCart";
 export function RootLayout() {
   const { data } = useCart();
   const cartAmount = data?.reduce((total, item) => total + item.quantity, 0);
+=======
+import { Link, Outlet } from "react-router-dom"
+import { GiShoppingCart } from "react-icons/gi"
+import { useCart } from "../hooks/useCart"
+
+export function RootLayout() {
+  const { data: cart } = useCart()
+>>>>>>> react-query-exercise
 
   return (
     <div>
@@ -15,7 +24,11 @@ export function RootLayout() {
           <div className="w-px bg-white/30 h-6" />
           <Link to="/cart" className="flex items-center gap-1">
             <span className="text-sm w-6 h-6 bg-slate-200 flex items-center justify-center rounded-full text-slate-800">
+<<<<<<< HEAD
               {cartAmount}
+=======
+              {cart?.length}
+>>>>>>> react-query-exercise
             </span>
             <GiShoppingCart className="w-6 h-6" />
           </Link>

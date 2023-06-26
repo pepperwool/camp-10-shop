@@ -1,13 +1,15 @@
 import { useState, Fragment } from "react"
 import { CartItem } from "../types/cart"
-import axios from "axios"
-import { HiPencil, HiShoppingBag, HiTrash } from "react-icons/hi"
+import { HiPencil, HiShoppingBag, HiTrash, HiCheckCircle } from "react-icons/hi"
 import { Menu, Transition } from "@headlessui/react"
 import { HiEllipsisHorizontal } from "react-icons/hi2"
 import { DeleteDialog } from "./DeleteDialog"
 import { cn } from "../lib/utils"
 import React from "react"
-import { Product } from "../types/products"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { BiSolidErrorCircle } from "react-icons/bi"
+import { toast } from "react-hot-toast"
+import { deleteItem } from "../api/cart"
 
 type ItemDropdownProps = {
   item: CartItem
@@ -15,6 +17,7 @@ type ItemDropdownProps = {
 
 export function ItemDropdown({ item }: ItemDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const queryClient = useQueryClient()
 
   function closeModal() {
     setIsOpen(false)
@@ -27,16 +30,7 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
   function editItem() {
     console.log("edit")
   }
-  async function deleteItem() {
-    await axios.delete(`http://localhost:3000/cart/${item.id}`)
-    const { data: product } = await axios.get<Product>(
-      `http://localhost:3000/products/${item.productId}`
-    )
-    await axios.patch(`http://localhost:3000/products/${item.productId}`, {
-      stock: product.stock + item.quantity,
-    })
-    closeModal()
-  }
+  
   function changeQuantity() {
     console.log("change quantity")
   }
@@ -50,6 +44,25 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
     },
     { name: "Delete", icon: <HiTrash />, function: openModal },
   ]
+
+  // delete item from cart
+  const { mutate } = useMutation({
+    mutationFn: async (item: CartItem) => {
+      await deleteItem(item)
+    },
+    onSuccess: async () => {
+      toast(`Removed successfully.`, {
+        icon: <HiCheckCircle className="text-green-500" />,
+      })
+      queryClient.invalidateQueries(["cart"])
+      queryClient.invalidateQueries(["products"])
+    },
+    onError: () => {
+      toast("Failed to delete.", {
+        icon: <BiSolidErrorCircle className="text-red-500" />,
+      })
+    },
+  })
 
   return (
     <>
@@ -98,7 +111,10 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
       <DeleteDialog
         isOpen={isOpen}
         closeModal={closeModal}
-        deleteItem={deleteItem}
+        deleteItem={() => {
+          mutate(item)
+          closeModal()
+        }}
       />
     </>
   )

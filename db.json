@@ -8,7 +8,7 @@
       "category": "shoes",
       "sport": "running",
       "price": 50,
-      "stock": 8
+      "stock": 16
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "category": "shoes",
       "sport": "running",
       "price": 70,
-      "stock": 5
+      "stock": 20
     },
     {
       "id": 3,
@@ -58,7 +58,7 @@
       "category": "pants",
       "sport": "tennis",
       "price": 30,
-      "stock": 15
+      "stock": 18
     },
     {
       "id": 7,
@@ -201,6 +201,7 @@
       "stock": 15
     }
   ],
+<<<<<<< HEAD
   "cart": [
     {
       "productId": 1,
@@ -223,4 +224,7 @@
       "id": 4
     }
   ]
+=======
+  "cart": []
+>>>>>>> react-query-exercise
 }
