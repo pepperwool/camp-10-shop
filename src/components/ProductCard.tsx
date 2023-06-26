@@ -13,7 +13,7 @@ import { cn } from "../lib/utils"
 import { Button } from "./Button"
 import axios from "axios"
 import { CartItem } from "../types/cart"
-import { addToCart } from "../api/cart"
+import { addToCart, updateItem } from "../api/cart"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -49,6 +49,7 @@ export function ProductCard({ product }: Props) {
     const { data: cart } = await axios.get<CartItem[]>(
       "http://localhost:3000/cart"
     )
+    console.log(quantity)
     const cartItem = cart.find((item) => item.productId === product.id)
     let item = {
       productId: product.id,
@@ -56,15 +57,15 @@ export function ProductCard({ product }: Props) {
     }
     if (!cartItem) {
       const newItem = await addToCart(item)
-      console.log(newItem)
+      console.log(newItem, "added new item")
     } else {
-      const { data: updatedItem } = await axios.patch<CartItem>(
-        `http://localhost:3000/cart/${cartItem.id}`,
-        {
-          quantity: cartItem.quantity + quantity,
-        }
-      )
-      item = updatedItem
+      console.log(cartItem.quantity + quantity)
+      const updatedItem = await updateItem({
+        productId: cartItem.productId,
+        quantity: cartItem.quantity + quantity,
+        id: cartItem.id,
+      })
+      console.log(updatedItem, "updated current item")
     }
 
     await axios.patch(`http://localhost:3000/products/${product.id}`, {
