@@ -9,6 +9,11 @@ import { Cart } from "./pages/Cart"
 import { Product } from "./types/products"
 import { CartItem } from "./types/cart"
 import { Toaster } from "react-hot-toast"
+import {
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 // Routes
 // - Products Page -> Homepage
@@ -16,6 +21,8 @@ import { Toaster } from "react-hot-toast"
 // - Add Product
 // - Edit Product
 // - Profile Page for the user maybe?
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -56,7 +63,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <Toaster />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <Toaster />
+    </QueryClientProvider>
   </React.StrictMode>
 )
