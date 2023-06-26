@@ -7,6 +7,7 @@ import {
   GiAmericanFootballBall,
   GiSportMedal,
 } from "react-icons/gi"
+import { BiSolidErrorCircle } from "react-icons/bi"
 import { toast } from "react-hot-toast"
 import { HiCheckCircle, HiMinus, HiPlus } from "react-icons/hi"
 import { cn } from "../lib/utils"
@@ -14,7 +15,8 @@ import { Button } from "./Button"
 import axios from "axios"
 import { CartItem } from "../types/cart"
 import { addToCart, updateItem } from "../api/cart"
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query"
+import { MutatedCartItem } from "../types/cart"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -33,7 +35,49 @@ type Props = {
 
 export function ProductCard({ product }: Props) {
   const [quantity, setQuantity] = useState(0)
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
+
+  const { mutate } = useMutation({
+    mutationFn: async (item: MutatedCartItem) => {
+      const { data: cart } = await axios.get<CartItem[]>(
+        "http://localhost:3000/cart"
+      )
+      // console.log(quantity)
+      const cartItem = cart.find((item) => item.productId === product.id)
+      if (!cartItem) {
+        await addToCart(item)
+        // console.log(newItem, "added new item")
+      } else {
+        console.log(cartItem.quantity + quantity)
+        await updateItem({
+          productId: cartItem.productId,
+          quantity: cartItem.quantity + quantity,
+          id: cartItem.id,
+        })
+        // console.log(updatedItem, "updated current item")
+      }
+    },
+    onSuccess: async () => {
+      // deduct the quantity from stock once it's onSuccess
+      // in a real-world use case, inventory management is way more complicated
+      // we only use a simplistic logic to get familiar with the concepts
+      product.stock -= quantity
+      await axios.patch(`http://localhost:3000/products/${product.id}`, {
+        stock: product.stock,
+      })
+      // console.log({ productId: product.id, stock: product.stock })
+      toast(`Added ${quantity} ${product.name} to your cart.`, {
+        icon: <HiCheckCircle className="text-green-500" />,
+      })
+      setQuantity(0)
+      queryClient.invalidateQueries(["cart"])
+    },
+    onError: () => {
+      toast("Something went wrong", {
+        icon: <BiSolidErrorCircle className="text-red-500" />,
+      })
+    },
+  })
 
   function increment() {
     if (quantity < product.stock) {
@@ -48,38 +92,9 @@ export function ProductCard({ product }: Props) {
   }
 
   async function updateCart() {
-    const { data: cart } = await axios.get<CartItem[]>(
-      "http://localhost:3000/cart"
-    )
-    console.log(quantity)
-    const cartItem = cart.find((item) => item.productId === product.id)
-    let item = {
+    mutate({
       productId: product.id,
       quantity,
-    }
-    if (!cartItem) {
-      const newItem = await addToCart(item)
-      console.log(newItem, "added new item")
-    } else {
-      console.log(cartItem.quantity + quantity)
-      const updatedItem = await updateItem({
-        productId: cartItem.productId,
-        quantity: cartItem.quantity + quantity,
-        id: cartItem.id,
-      })
-      console.log(updatedItem, "updated current item")
-    }
-  
-    product.stock -= quantity
-    await axios.patch(`http://localhost:3000/products/${product.id}`, {
-      stock: product.stock,
-    })
-    console.log({stock: product.stock})
-
-    setQuantity(0)
-    toast("Product added to cart", {
-      icon: <HiCheckCircle className="w-6 h-6 text-green-500" />,
-      position: "bottom-right",
     })
   }
 

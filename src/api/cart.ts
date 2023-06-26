@@ -1,6 +1,7 @@
 import axios from "axios"
 import { CartItem } from "../types/cart"
 import { Product } from "../types/products"
+import { MutatedCartItem } from "../types/cart"
 
 const API_URL = "http://localhost:3000"
 
@@ -9,7 +10,7 @@ export const getCart = async () => {
   return res.data
 }
 
-export const addToCart = async (item: Omit<CartItem, "id">) => {
+export const addToCart = async (item: MutatedCartItem) => {
   const res = await axios.post<CartItem>(`${API_URL}/cart`, { ...item })
   return res.data
 }
@@ -26,7 +27,7 @@ export const deleteItem = async (item: CartItem) => {
   const { data: product } = await axios.get<Product>(
     `http://localhost:3000/products/${item.productId}`
   )
-  console.log(product.stock + item.quantity)
+  // console.log(product.stock + item.quantity)
   await axios.patch(`http://localhost:3000/products/${item.productId}`, {
     stock: product.stock + item.quantity
   })
