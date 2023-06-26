@@ -8,7 +8,7 @@
       "category": "shoes",
       "sport": "running",
       "price": 50,
-      "stock": 8
+      "stock": 6
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "category": "shoes",
       "sport": "running",
       "price": 70,
-      "stock": 3
+      "stock": 0
     },
     {
       "id": 3,
@@ -98,7 +98,7 @@
       "category": "pants",
       "sport": "running",
       "price": 40,
-      "stock": 25
+      "stock": 24
     },
     {
       "id": 11,
@@ -204,18 +204,13 @@
   "cart": [
     {
       "productId": 2,
-      "quantity": 2,
+      "quantity": 3,
       "id": 1
     },
     {
-      "productId": 3,
-      "quantity": 5,
+      "productId": 10,
+      "quantity": 1,
       "id": 2
-    },
-    {
-      "productId": 13,
-      "quantity": 3,
-      "id": 3
     }
   ]
 }

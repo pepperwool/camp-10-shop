@@ -26,28 +26,28 @@ export function Cart() {
     }
     })
 
-  console.log("test:", productsWithQuantity)
-
   return (
     <div className="flex flex-col gap-4">
-      {productsWithQuantity?.map((product) => (
-        <div key={product.id} className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-20 h-20 object-cover"
-            />
-            <span className="font-medium text-lg">{product.name}</span>
+      {
+        cart?.length === 0 ? <div>Your Cart is empty.</div> : productsWithQuantity?.map((product) => (
+          <div key={product.id} className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-20 h-20 object-cover"
+              />
+              <span className="font-medium text-lg">{product.name}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span>Price: ${product.price}</span>
+              <span>Quantity: {product.quantity}</span>
+              <span>Total: ${product.quantity! * product.price}</span>
+              {product.item && <ItemDropdown item={product.item} />}
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            <span>Price: ${product.price}</span>
-            <span>Quantity: {product.quantity}</span>
-            <span>Total: ${product.quantity! * product.price}</span>
-            {product.item && <ItemDropdown item={product.item} />}
-          </div>
-        </div>
-      ))}
+        ))
+      }
       <div className="flex flex-col items-end">
         <h3 className="text-2xl font-semibold">Total</h3>
         <span className="text-3xl font-medium">
