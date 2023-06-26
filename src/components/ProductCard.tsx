@@ -14,6 +14,7 @@ import { Button } from "./Button"
 import axios from "axios"
 import { CartItem } from "../types/cart"
 import { addToCart, updateItem } from "../api/cart"
+import { useQueryClient } from "@tanstack/react-query";
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -32,6 +33,7 @@ type Props = {
 
 export function ProductCard({ product }: Props) {
   const [quantity, setQuantity] = useState(0)
+  const queryClient = useQueryClient();
 
   function increment() {
     if (quantity < product.stock) {
@@ -67,10 +69,12 @@ export function ProductCard({ product }: Props) {
       })
       console.log(updatedItem, "updated current item")
     }
-
+  
+    product.stock -= quantity
     await axios.patch(`http://localhost:3000/products/${product.id}`, {
-      stock: product.stock - quantity,
+      stock: product.stock,
     })
+    console.log({stock: product.stock})
 
     setQuantity(0)
     toast("Product added to cart", {

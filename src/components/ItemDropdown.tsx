@@ -1,13 +1,12 @@
 import { useState, Fragment } from "react"
 import { CartItem } from "../types/cart"
-import axios from "axios"
 import { HiPencil, HiShoppingBag, HiTrash } from "react-icons/hi"
 import { Menu, Transition } from "@headlessui/react"
 import { HiEllipsisHorizontal } from "react-icons/hi2"
 import { DeleteDialog } from "./DeleteDialog"
 import { cn } from "../lib/utils"
 import React from "react"
-import { Product } from "../types/products"
+import { deleteItem } from "../api/cart"
 
 type ItemDropdownProps = {
   item: CartItem
@@ -27,16 +26,18 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
   function editItem() {
     console.log("edit")
   }
-  async function deleteItem() {
-    await axios.delete(`http://localhost:3000/cart/${item.id}`)
-    const { data: product } = await axios.get<Product>(
-      `http://localhost:3000/products/${item.productId}`
-    )
-    await axios.patch(`http://localhost:3000/products/${item.productId}`, {
-      stock: product.stock + item.quantity,
-    })
-    closeModal()
-  }
+
+  // async function deleteItem() {
+  //   await axios.delete(`http://localhost:3000/cart/${item.id}`)
+  //   const { data: product } = await axios.get<Product>(
+  //     `http://localhost:3000/products/${item.productId}`
+  //   )
+  //   await axios.patch(`http://localhost:3000/products/${item.productId}`, {
+  //     stock: product.stock + item.quantity,
+  //   })
+  //   closeModal()
+  // }
+  
   function changeQuantity() {
     console.log("change quantity")
   }
@@ -98,7 +99,10 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
       <DeleteDialog
         isOpen={isOpen}
         closeModal={closeModal}
-        deleteItem={deleteItem}
+        deleteItem={() => {
+          deleteItem(item)
+          closeModal()
+        }}
       />
     </>
   )
