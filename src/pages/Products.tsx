@@ -4,7 +4,9 @@ import { ProductCard } from "../components/ProductCard"
 import { useProducts } from "../hooks/useProducts"
 
 export function Products() {
-  const { products: initialProducts } = useLoaderData() as { products: Product[] }
+  const { products: initialProducts } = useLoaderData() as {
+    products: Product[]
+  }
   const { data: products } = useProducts({
     initialData: initialProducts,
     refetchInterval: 1000 * 60 * 60,
@@ -12,9 +14,9 @@ export function Products() {
 
   const { isSuccess, isLoading, isError, data } = useProducts({
     initialData: products,
-  });
+  })
 
-  console.log({ isSuccess, isLoading, isError, data });
+  console.log({ isSuccess, isLoading, isError, data })
   return (
     <div>
       <h2 className="text-3xl mb-8 font-semibold"> All products</h2>
@@ -24,5 +26,5 @@ export function Products() {
         ))}
       </div>
     </div>
-  );
+  )
 }

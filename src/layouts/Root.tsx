@@ -25,5 +25,5 @@ export function RootLayout() {
         <Outlet />
       </main>
     </div>
-  );
+  )
 }

@@ -18,6 +18,7 @@ import { addToCart, updateItem } from "../api/cart"
 import { useQueryClient, useMutation } from "@tanstack/react-query"
 import { MutatedCartItem } from "../types/cart"
 import { CardBadge } from "./CardBadge"
+import { updateProductStock } from "../api/products"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -38,6 +39,7 @@ export function ProductCard({ product }: Props) {
   const [quantity, setQuantity] = useState(0)
   const queryClient = useQueryClient()
 
+  // hint: this can be wrapped into a custom hook useCartMutation () => useMutation ... 
   const { mutate } = useMutation({
     mutationFn: async (item: MutatedCartItem) => {
       const { data: cart } = await axios.get<CartItem[]>(
@@ -46,11 +48,11 @@ export function ProductCard({ product }: Props) {
       // console.log(quantity)
       const cartItem = cart.find((item) => item.productId === product.id)
       if (!cartItem) {
-        await addToCart(item)
+        return await addToCart(item)
         // console.log(newItem, "added new item")
       } else {
         console.log(cartItem.quantity + quantity)
-        await updateItem({
+        return await updateItem({
           productId: cartItem.productId,
           quantity: cartItem.quantity + quantity,
           id: cartItem.id,
@@ -61,11 +63,12 @@ export function ProductCard({ product }: Props) {
     onSuccess: async () => {
       // deduct the quantity from stock once it's onSuccess
       // in a real-world use case, inventory management is way more complicated
-      // we only use a simplistic logic to get familiar with the concepts
-      await axios.patch(`http://localhost:3000/products/${product.id}`, {
-        stock: product.stock - quantity,
+      // for example, it might be better to mutate cart and products in a separate useMutate function
+      // we only use a simpler logic here to get familiar with the concepts
+      await updateProductStock({
+        id: product.id,
+        stock: product.stock - quantity
       })
-      // console.log({ productId: product.id, stock: product.stock })
       toast(`Added ${quantity} ${product.name} to your cart.`, {
         icon: <HiCheckCircle className="text-green-500" />,
       })
