@@ -30,7 +30,7 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
   function editItem() {
     console.log("edit")
   }
-  
+
   function changeQuantity() {
     console.log("change quantity")
   }
@@ -65,13 +65,11 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
   })
 
   return (
-    <>
-      <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className="inline-flex justify-center text-black rounded-md px-4 py-2 text-sm font-medium">
-            <HiEllipsisHorizontal className="h-5 w-5" aria-hidden="true" />
-          </Menu.Button>
-        </div>
+    <div>
+      <Menu as="div" className="relative flex text-left">
+        <Menu.Button className="flex justify-center items-center text-black rounded-md text-sm font-medium border w-10 h-10 hover:bg-teal-400 hover:text-white">
+          <HiEllipsisHorizontal className="h-5 w-5" aria-hidden="true" />
+        </Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -116,6 +114,6 @@ export function ItemDropdown({ item }: ItemDropdownProps) {
           closeModal()
         }}
       />
-    </>
+    </div>
   )
 }

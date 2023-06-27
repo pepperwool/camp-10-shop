@@ -100,7 +100,7 @@ export function ProductCard({ product }: Props) {
   }
 
   return (
-    <div className="shadow-md rounded-md overflow-hidden flex flex-col">
+    <div className="shadow-md rounded-md overflow-hidden flex flex-col bg-slate-100">
       <div className="relative">
         <img
           src={product.image}

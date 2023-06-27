@@ -7,8 +7,8 @@ export function RootLayout() {
 
   return (
     <div>
-      <header className="bg-slate-600 text-white px-4 py-4 flex justify-between items-center">
-        <Link to="/">My Shop</Link>
+      <header className="bg-teal-700 text-white px-4 py-4 flex justify-between items-center shadow-lg">
+        <Link to="/">This is a SHOP</Link>
         <div className="flex items-center gap-4">
           <div className="w-8 h-8 rounded-full bg-white" />
           <div className="w-px bg-white/30 h-6" />
@@ -20,7 +20,7 @@ export function RootLayout() {
           </Link>
         </div>
       </header>
-      <main className="p-4">
+      <main className="p-4 w-[90%] mx-auto">
         {/* This is a placeholder - the element of the current route gets mounted here */}
         <Outlet />
       </main>

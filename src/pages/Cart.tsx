@@ -10,27 +10,31 @@ export function Cart() {
   }
 
   const { data: cart } = useCart({
-    initialData: initialCart
+    initialData: initialCart,
   })
 
   const { data: products } = useProducts({
-    enabled: cart && cart.length > 0
+    enabled: cart && cart.length > 0,
   })
 
-  const productsWithQuantity = products?.filter(product => cart?.some(item => item.productId === product.id)).map((product) => {
-    const item = cart?.find((item) => item.productId === product.id);
-    return {
-      ...product,
-      quantity: item?.quantity,
-      item,
-    }
+  const productsWithQuantity = products
+    ?.filter((product) => cart?.some((item) => item.productId === product.id))
+    .map((product) => {
+      const item = cart?.find((item) => item.productId === product.id)
+      return {
+        ...product,
+        quantity: item?.quantity,
+        item,
+      }
     })
 
   return (
-    <div className="flex flex-col gap-4">
-      {
-        cart?.length === 0 ? <div>Your Cart is empty.</div> : productsWithQuantity?.map((product) => (
-          <div key={product.id} className="flex items-center justify-between">
+    <div className="flex flex-col gap-3 md:w-4/5 lg:w-3/5 mx-auto bg-zinc-100 shadow-sm px-4 py-4 rounded-md">
+      {cart?.length === 0 ? (
+        <div className="text-2xl">Your cart is empty.</div>
+      ) : (
+        productsWithQuantity?.map((product) => (
+          <div key={product.id} className="flex flex-col md:flex-row justify-between bg-white px-2 py-2">
             <div className="flex items-center gap-4">
               <img
                 src={product.image}
@@ -39,16 +43,18 @@ export function Cart() {
               />
               <span className="font-medium text-lg">{product.name}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span>Price: ${product.price}</span>
-              <span>Quantity: {product.quantity}</span>
-              <span>Total: ${product.quantity! * product.price}</span>
+            <div className="flex gap-4 justify-between items-center">
+              <div className="flex flex-col w-32">
+                <span className="flex justify-between">Price: <span>${product.price}</span></span>
+                <span className="flex justify-between">Quantity: <span>{product.quantity}</span></span>
+                <span className="flex justify-between">Total: <span>${product.quantity! * product.price}</span></span>
+              </div>
               {product.item && <ItemDropdown item={product.item} />}
             </div>
           </div>
         ))
-      }
-      <div className="flex flex-col items-end">
+      )}
+      <div className="flex flex-col items-end py-2 px-2">
         <h3 className="text-2xl font-semibold">Total</h3>
         <span className="text-3xl font-medium">
           $
@@ -59,5 +65,5 @@ export function Cart() {
         </span>
       </div>
     </div>
-  );
+  )
 }
