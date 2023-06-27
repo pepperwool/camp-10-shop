@@ -28,7 +28,7 @@
       "category": "shirts",
       "sport": "other",
       "price": 20,
-      "stock": 5
+      "stock": 2
     },
     {
       "id": 4,
@@ -58,7 +58,7 @@
       "category": "pants",
       "sport": "tennis",
       "price": 30,
-      "stock": 18
+      "stock": 1
     },
     {
       "id": 7,
@@ -108,7 +108,7 @@
       "category": "accessoires",
       "sport": "basketball",
       "price": 60,
-      "stock": 10
+      "stock": 3
     },
     {
       "id": 12,

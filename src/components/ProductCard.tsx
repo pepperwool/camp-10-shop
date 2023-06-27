@@ -17,6 +17,7 @@ import { CartItem } from "../types/cart"
 import { addToCart, updateItem } from "../api/cart"
 import { useQueryClient, useMutation } from "@tanstack/react-query"
 import { MutatedCartItem } from "../types/cart"
+import { CardBadge } from "./CardBadge"
 
 const sportIcon: Record<Sport, { icon: JSX.Element; color: string }> = {
   "american-football": {
@@ -61,9 +62,8 @@ export function ProductCard({ product }: Props) {
       // deduct the quantity from stock once it's onSuccess
       // in a real-world use case, inventory management is way more complicated
       // we only use a simplistic logic to get familiar with the concepts
-      product.stock -= quantity
       await axios.patch(`http://localhost:3000/products/${product.id}`, {
-        stock: product.stock,
+        stock: product.stock - quantity,
       })
       // console.log({ productId: product.id, stock: product.stock })
       toast(`Added ${quantity} ${product.name} to your cart.`, {
@@ -71,6 +71,7 @@ export function ProductCard({ product }: Props) {
       })
       setQuantity(0)
       queryClient.invalidateQueries(["cart"])
+      queryClient.invalidateQueries(["products"])
     },
     onError: () => {
       toast("Something went wrong", {
@@ -106,6 +107,7 @@ export function ProductCard({ product }: Props) {
           alt={product.name}
           className="aspect-square object-cover object-top w-full"
         />
+        { (product.stock <= 3 && product.stock > 0) && <CardBadge stock={product.stock}/> }
         <span className="absolute bottom-4 right-4 font-bold text-2xl bg-slate-900/20 aspect-square flex items-center justify-center p-2 rounded-md backdrop-blur-md text-white">
           ${product.price}
         </span>
@@ -134,11 +136,12 @@ export function ProductCard({ product }: Props) {
             </Button>
           </div>
           <Button
+            variant={product.stock === 0 ? "destructive" : "primary"}
             onClick={updateCart}
             className="flex-1"
             disabled={quantity === 0}
           >
-            Add to cart
+            {product.stock === 0 ? "Out of Stock" : "Add to cart"}
           </Button>
         </div>
       </div>
